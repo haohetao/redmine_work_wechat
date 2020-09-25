@@ -1,4 +1,8 @@
   <p>
+    <label><%= l(:settings_dt_api_url) %></label>
+    <%= text_field_tag 'settings[dingtalk_api_url]', @settings["dingtalk_api_url"], :size => 60 %>
+  </p>
+  <p>
     <label><%= l(:settings_dt_corp_id) %></label>
     <%= text_field_tag 'settings[dingtalk_corp_id]', @settings["dingtalk_corp_id"], :size => 60 %>
   </p>

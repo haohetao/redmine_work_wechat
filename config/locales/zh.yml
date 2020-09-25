@@ -58,6 +58,7 @@ zh:
   
   
   settings_dingtalk: 钉钉消息推送
+  settings_dt_api_url: 钉钉API(默认:https://oapi.dingtalk.com)
   settings_dt_corp_id: 企业ID（CorpId）
   settings_dt_app_id: 应用ID（AgentID）
   settings_dt_corp_secret: 企业Secret（CorpSecret）

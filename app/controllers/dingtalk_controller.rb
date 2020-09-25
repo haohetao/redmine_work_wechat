@@ -2,6 +2,7 @@ class DingtalkController < ApplicationController
   def start_dingtalk_flow
     # flow_flag = Setting["plugin_redmine_work_wechat"]["dingtalk_approval_flow_enabled"]
     flow_flag = "0" 
+    apiUrl = Setting["plugin_redmine_work_wechat"]["dingtalk_api_url"]
     #填写确认并应用的企业ID
     corpid = Setting["plugin_redmine_work_wechat"]["dingtalk_corp_id"]
     #填写确认并应用的应用Secret
@@ -16,6 +17,9 @@ class DingtalkController < ApplicationController
     appid = Setting["plugin_redmine_work_wechat"]["dingtalk_app_id"]
     #对应的审批流编号
     approval_flow_no = Setting["plugin_redmine_work_wechat"]["dingtalk_approval_flow_no"]
+    if apiUrl.blank?
+      apiUrl = "https://oapi.dingtalk.com" 
+    end
     if flow_flag == "0" || corpid.blank? || appkey.blank? || appsecret.blank? || appid.blank? || approval_dept_id.blank? || approval_flow_no.blank?
       flash[:notice] = l(:flash_dingtalk_setting_lack)
       @err_response = l(:lable_err_setting_null)
@@ -25,7 +29,7 @@ class DingtalkController < ApplicationController
     # 获取issue参数
     @issue_id = params[:id]
     # uri = URI.parse("https://oapi.dingtalk.com/gettoken?corpid=#{corpid}&corpsecret=#{corpsecret}")
-    uri = URI.parse("https://oapi.dingtalk.com/gettoken?appkey=#{appkey}&appsecret=#{appsecret}")
+    uri = URI.parse("#{apiUrl}/gettoken?appkey=#{appkey}&appsecret=#{appsecret}")
     # 改成异常捕捉，避免is_valid?方法本身的出错
     begin
       http = Net::HTTP.new(uri.host, uri.port)
